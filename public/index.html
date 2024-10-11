@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze Sentiment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Analyze Sentiment</h1>
+    <textarea id="text-input" rows="10" placeholder="Enter text"></textarea>
+    <button id="analyze-button">Analyze</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('analyze-button').addEventListener('click', async () => {
+            const text = document.getElementById('text-input').value;
+
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = `Polarity: ${result.polarity}`;
+        });
+    </script>
+</body>
+</html>
